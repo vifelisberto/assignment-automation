@@ -2,6 +2,7 @@ public class Assignment {
 
     public Boolean validAssignment(String assignment) {
         final int IDX_FIRST_LETTER = 0;
+
         if (assignment == null || assignment.isEmpty())
             return false;
 
@@ -10,28 +11,35 @@ public class Assignment {
         if (!isLowercaseLetter(firstCharacter))
             return false;
 
-        int indexAssignmentOperator;
+        System.out.println("Primeiro caracter inválido: " + firstCharacter);
+
+        Boolean validOperator, validAssignment, validSemicolon;
+        validOperator = validAssignment = validSemicolon = false;
+
         for (int i = 1; i < assignment.length(); i++) {
             char character = assignment.charAt(i);
 
-            if (isLowercaseLetter(character)) {
+            if (!validOperator && isValidCharacterIdentifier(character)) {
+                System.out.println("Caracter: " + character + " na posição: " + i + " é válido");
                 continue;
-            } else if (isNumber(character)) {
-                continue;
-            } else if (isUnderscore(character)) {
-                continue;
-            } else if (isAssignmentOperator(character)) {
-                indexAssignmentOperator = i;
+            } else if (!validOperator && isAssignmentOperator(character)) {
+                System.out.println("Operador: " + character + " na posição: " + i + " é válido");
+                validOperator = true;
                 break;
+            } else if (validOperator && !validAssignment) {
+
             } else {
                 return false;
             }
         }
 
-        return true;
+        return validOperator && validAssignment && validSemicolon;
     }
 
     // Validação de identificador
+    private Boolean isValidCharacterIdentifier(char character) {
+        return isLowercaseLetter(character) || isNumber(character) || isUnderscore(character);
+    }
 
     // Validações de caracteres
     private Boolean isLowercaseLetter(char character) {
@@ -78,5 +86,9 @@ public class Assignment {
         final int ASCII_CHARACTER = (int) character;
 
         return ASCII_CHARACTER == ASCII_SEMICOLON;
+    }
+
+    private Boolean isSpace(char character) {
+        return character == ' ';
     }
 }
