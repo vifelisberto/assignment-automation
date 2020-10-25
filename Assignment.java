@@ -1,43 +1,109 @@
 public class Assignment {
-
     public Boolean validAssignment(String assignment) {
-        final int IDX_FIRST_LETTER = 0;
+        State state = State.q0;
 
-        if (assignment == null || assignment.isEmpty())
-            return false;
-
-        char firstCharacter = assignment.charAt(IDX_FIRST_LETTER);
-
-        if (!isLowercaseLetter(firstCharacter))
-            return false;
-
-        System.out.println("Primeiro caracter inválido: " + firstCharacter);
-
-        Boolean validOperator, validAssignment, validSemicolon;
-        validOperator = validAssignment = validSemicolon = false;
-
-        for (int i = 1; i < assignment.length(); i++) {
+        for (int i = 0; i < assignment.length(); i++) {
             char character = assignment.charAt(i);
 
-            if (!validOperator && isValidCharacterIdentifier(character)) {
-                System.out.println("Caracter: " + character + " na posição: " + i + " é válido");
-                continue;
-            } else if (!validOperator && isAssignmentOperator(character)) {
-                System.out.println("Operador: " + character + " na posição: " + i + " é válido");
-                validOperator = true;
-                break;
-            } else if (validOperator && !validAssignment) {
+            System.out.println(System.lineSeparator());
+            System.out.print("Lendo caracter: " + character + " na posição: " + i);
 
-            } else {
-                return false;
+            switch (state) {
+                case q0:
+                    if (isLowercaseLetter(character)) {
+                        state = State.q1;
+                        printMessageValid(state);
+                    } else
+                        return printMessageInvalidAndReturnFalse();
+                    break;
+                case q1:
+                    if (isValidCharacterIdentifier(character)) {
+                        state = State.q1;
+                        printMessageValid(state);
+                    } else if (isAssignmentOperator(character)) {
+                        state = State.q3;
+                        printMessageValid(state);
+                    } else
+                        return printMessageInvalidAndReturnFalse();
+                    break;
+                case q2:
+                    if (isValidCharacterIdentifier(character)) {
+                        state = State.q2;
+                        printMessageValid(state);
+                    } else
+                        return printMessageInvalidAndReturnFalse();
+                    break;
+                case q3:
+                    if (isNumber(character)) {
+                        state = State.q4;
+                        printMessageValid(state);
+                    } else if (isLowercaseLetter(character)) {
+                        state = State.q2;
+                        printMessageValid(state);
+                    } else
+                        return printMessageInvalidAndReturnFalse();
+                    break;
+                case q4:
+                    if (isNumber(character)) {
+                        state = State.q4;
+                        printMessageValid(state);
+                    } else if (isDot(character)) {
+                        state = State.q6;
+                        printMessageValid(state);
+                    } else if (isSemicolon(character)) {
+                        state = State.q8;
+                        printMessageValid(state);
+                    } else
+                        return printMessageInvalidAndReturnFalse();
+                    break;
+                case q6:
+                    if (isNumber(character)) {
+                        state = State.q7;
+                        printMessageValid(state);
+                    } else
+                        return printMessageInvalidAndReturnFalse();
+                    break;
+                case q7:
+                    if (isNumber(character)) {
+                        state = State.q7;
+                        printMessageValid(state);
+                    } else if (isSemicolon(character)) {
+                        state = State.q8;
+                        printMessageValid(state);
+                    } else
+                        return printMessageInvalidAndReturnFalse();
+                    break;
+                case q8:
+                    int lastIndex = assignment.length() - 1;
+                    Boolean isLastIndex = i == lastIndex;
+                    System.out.println("Palavra é válida? " + (isLastIndex ? "sim" : "não"));
+                    return isLastIndex;
+                default:
+                    return printMessageInvalidAndReturnFalse();
             }
         }
 
-        return validOperator && validAssignment && validSemicolon;
+        System.out.println(System.lineSeparator());
+        System.out.println("Não existe mais caracteres para atender o automato");
+        return false;
+    }
+
+    private void printMessageValid(State state) {
+        System.out.print(" - Caracter válido - Mudando para o estado: " + state);
+    }
+
+    private Boolean printMessageInvalidAndReturnFalse() {
+        System.out.println(" - Caracter inválido!");
+        return false;
     }
 
     // Validação de identificador
     private Boolean isValidCharacterIdentifier(char character) {
+        return isLowercaseLetter(character) || isNumber(character) || isUnderscore(character);
+    }
+
+    // Estados
+    public Boolean validateCharactersIdentifier(char character) {
         return isLowercaseLetter(character) || isNumber(character) || isUnderscore(character);
     }
 
@@ -88,7 +154,7 @@ public class Assignment {
         return ASCII_CHARACTER == ASCII_SEMICOLON;
     }
 
-    private Boolean isSpace(char character) {
-        return character == ' ';
+    private enum State {
+        q0, q1, q3, q4, q6, q7, q2, q8
     }
 }

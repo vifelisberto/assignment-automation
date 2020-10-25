@@ -3,6 +3,6 @@ public class AssignmentAutomaton {
         Assignment assignment = new Assignment();
         Boolean valid = assignment.validAssignment("assignment");
 
-        System.out.println(valid);
+        System.out.println("Palavra é " + (valid ? "válid" : "inválida"));
     }
 }
