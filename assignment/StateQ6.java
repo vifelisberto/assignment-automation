@@ -2,7 +2,13 @@ package assignment;
 
 public class StateQ6 extends State {
     @Override
-    public Boolean isValidCharacterForState(char character) {
-        return true;
+    public State isValidCharacterForState(char character) {
+        if (isNumber(character)) {
+            System.out.print(" - Caracter válido - Mudando para o estado: q7");
+            return new StateQ7();
+        }
+
+        System.out.print(" - Caracter inválido!");
+        return null;
     }
 }
