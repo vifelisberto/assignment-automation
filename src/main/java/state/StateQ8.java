@@ -1,4 +1,4 @@
-package assignment;
+package src.main.java.state;
 
 public class StateQ8 extends State {
     @Override

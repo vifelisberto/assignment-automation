@@ -1,4 +1,8 @@
-package assignment;
+package src.main.java.assignment;
+
+import src.main.java.state.State;
+import src.main.java.state.StateQ0;
+import src.main.java.state.StateQ8;
 
 public class Assignment {
     public Boolean validAssignment(String assignment) {

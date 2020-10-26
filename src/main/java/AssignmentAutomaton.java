@@ -1,5 +1,7 @@
+package src.main.java;
+
 import java.util.HashMap;
-import assignment.Assignment;
+import src.main.java.assignment.Assignment;
 
 public class AssignmentAutomaton {
     public static void main(String[] args) {

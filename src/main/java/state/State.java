@@ -1,4 +1,4 @@
-package assignment;
+package src.main.java.state;
 
 public abstract class State {
     public abstract State isValidCharacterForState(char character);
