@@ -1,0 +1,29 @@
+Dependencia java JDK/JRE: https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+
+Para executar o projeto existe 2 opções:
+
+1 - VSCode
+
+Caso tenha o visual studio code, apenas abra o arquivo `src/main/java/AssignmentAutomaton.java` do projeto e aperte F5, para executar.
+
+Ou executa o arquivo em uma IDEA de sua preferência.
+
+2 - Terminal
+Dentro da raiz do projeto (assignment-automation) rode os seguintes comandos:
+
+javac src/main/java/AssignmentAutomaton.java
+java src/main/java/AssignmentAutomaton
+
+O comando `javac` compila o projeto e o comando `java` executa o arquivo compilado.
+
+---
+- Após a primeira execução é informada uma mensagem, para caso deseje testar outras palavras digitar 1 e enter
+E caso queira encerar o programa, digitar qualquer outro caracter.
+
+- Cada execução mostra qual caracter está sendo lido em qual posição e para qual estado ele irá.
+
+Gustavo Nascimento - 21088401
+Matheus Alves - 21174793
+Michele Camargo - 20952684
+Vinicius Felisberto - 21034071
+Vinicius Mendes - 21144025
