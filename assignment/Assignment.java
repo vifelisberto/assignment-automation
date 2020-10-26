@@ -24,6 +24,7 @@ public class Assignment {
                 return true;
         }
 
+        System.out.println();
         System.out.println("Palavra inválida");
         return false;
     }
