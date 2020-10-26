@@ -1,3 +1,5 @@
+package assignment;
+
 public class Assignment {
     public Boolean validAssignment(String assignment) {
         State state = State.q0;
@@ -7,6 +9,8 @@ public class Assignment {
 
             System.out.println(System.lineSeparator());
             System.out.print("Lendo caracter: " + character + " na posição: " + i);
+
+            // new State().isValidCharacterForState(character);
 
             switch (state) {
                 case q0:
@@ -29,6 +33,10 @@ public class Assignment {
                 case q2:
                     if (isValidCharacterIdentifier(character)) {
                         state = State.q2;
+                        printMessageValid(state);
+                    } else if (isSemicolon(character)) {
+                        state = State.q8;
+                        i--;
                         printMessageValid(state);
                     } else
                         return printMessageInvalidAndReturnFalse();
