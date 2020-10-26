@@ -52,6 +52,7 @@ public class Assignment {
                         printMessageValid(state);
                     } else if (isSemicolon(character)) {
                         state = State.q8;
+                        i--;
                         printMessageValid(state);
                     } else
                         return printMessageInvalidAndReturnFalse();
@@ -69,6 +70,7 @@ public class Assignment {
                         printMessageValid(state);
                     } else if (isSemicolon(character)) {
                         state = State.q8;
+                        i--;
                         printMessageValid(state);
                     } else
                         return printMessageInvalidAndReturnFalse();
@@ -76,7 +78,7 @@ public class Assignment {
                 case q8:
                     int lastIndex = assignment.length() - 1;
                     Boolean isLastIndex = i == lastIndex;
-                    System.out.println("Palavra é válida? " + (isLastIndex ? "sim" : "não"));
+                    System.out.println("Palavra é " + (isLastIndex ? "válida" : "inválida"));
                     return isLastIndex;
                 default:
                     return printMessageInvalidAndReturnFalse();
